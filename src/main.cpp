@@ -31,7 +31,7 @@ class $modify(MyCreatorLayer, CreatorLayer) {
     auto spr = ButtonSprite::create("AI");
     auto btn = CCMenuItemSpriteExtra::create(spr, this, menu_selector(MyCreatorLayer::askLLM));
 
-    btn->setID("respawn-btn"_spr);
+    btn->setID("ai-btn"_spr);
     auto options = geode::AxisLayoutOptions::create()->setScaleLimits(0.6f, 1.0f);
 
     btn->setLayoutOptions(options);
@@ -43,7 +43,7 @@ class $modify(MyCreatorLayer, CreatorLayer) {
     static geode::async::TaskHolder<> loader;
 
     loader.spawn([this, path]()->arc::Future<> {
-      llamalib::Options options = { .n_gpu_layers = 0, .n_ctx = 512 };
+      llamalib::Options options = { .n_gpu_layers = 0, .n_ctx = 1024 };
       m_fields->m_llm = std::make_unique<llamalib::Llama>(path.string(), options);
 
       co_return;
@@ -57,12 +57,12 @@ class $modify(MyCreatorLayer, CreatorLayer) {
     log::info("Attempting LLM Response!");
 
     llamalib::GenerateOptions options = { 
-      .max_tokens = 40, 
+      .max_tokens = 36, 
       .grammar = R"(
         root ::= word ( " " word ){0,15}
         word ::= [^ \n]+
       )",
-      .temperature = 0.4f 
+      .temperature = 0.8f
     };
     std::string text = m_fields->m_llm->generate(
       "Tell me a random fun fact within 16 words or less.\nAnswer: ", options

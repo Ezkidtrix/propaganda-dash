@@ -10,14 +10,14 @@
 	"name": "propaganda-dash",
 	"version": "v1.0.0",
 	"developer": "Ezkidtrix",
-	"description": "Provides some 'tips' while in a level :)",
+	"description": "Provides some 'tips' during a level :)",
 	"tags": ["joke", "content", "customization"],
 	"dependencies": {
 		"geode.node-ids": ">=v1.23.3"
 	},
 	"resources": {
     "files": [
-      "resources/SmolLM-135M-Instruct-Q2_K.gguf"
+      "resources/SmolLM-135M-Instruct-Q3_K_M.gguf"
     ]
   }
 }
